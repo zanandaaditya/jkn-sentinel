@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, ForeignKey
+from sqlalchemy import Column, String, Integer, ForeignKey
 from models import Base
 
 
@@ -18,6 +18,11 @@ class Doctor(Base):
     )
 
 
+    sip_number = Column(
+        String
+    )
+
+
     name = Column(
         String
     )
@@ -28,9 +33,24 @@ class Doctor(Base):
     )
 
 
-    provider_id = Column(
+    doctor_type = Column(
+        String
+    )
+
+
+    facility_id = Column(
         String,
         ForeignKey(
-            "providers.id"
+            "facilities.id"
         )
+    )
+
+
+    experience_year = Column(
+        Integer
+    )
+
+
+    status = Column(
+        String
     )

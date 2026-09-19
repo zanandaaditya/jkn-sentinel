@@ -1,24 +1,18 @@
 from database import get_session
 
-from generator.diagnosis_generator import generate_diagnosis
-
 from models.diagnosis_model import Diagnosis
+
+from generator.diagnosis_generator import generate_diagnosis
 
 
 
 def insert_diagnosis():
 
-
-    session = get_session()
-
-
-    print(
-        "Generating diagnosis..."
-    )
+    session=get_session()
 
 
     data = generate_diagnosis(
-        200
+        2000
     )
 
 
@@ -33,27 +27,12 @@ def insert_diagnosis():
 
     for item in data:
 
-
-        diagnosis = Diagnosis(
-            **item
-        )
-
-
         objects.append(
-            diagnosis
+            Diagnosis(**item)
         )
 
 
-
-    print(
-        "Inserting diagnosis..."
-    )
-
-
-    session.add_all(
-        objects
-    )
-
+    session.add_all(objects)
 
     session.commit()
 
@@ -67,6 +46,5 @@ def insert_diagnosis():
 
 
 
-if __name__ == "__main__":
-
+if __name__=="__main__":
     insert_diagnosis()

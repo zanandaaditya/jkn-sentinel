@@ -1,24 +1,18 @@
 from database import get_session
 
-from generator.procedure_generator import generate_procedures
-
 from models.procedure_model import Procedure
 
+from generator.procedure_generator import generate_procedures
 
 
-def insert_procedures():
+
+def insert_procedure():
+
+    session=get_session()
 
 
-    session = get_session()
-
-
-    print(
-        "Generating procedures..."
-    )
-
-
-    data = generate_procedures(
-        100
+    data=generate_procedures(
+        1000
     )
 
 
@@ -33,30 +27,14 @@ def insert_procedures():
 
     for item in data:
 
-
-        procedure = Procedure(
-            **item
-        )
-
-
         objects.append(
-            procedure
+            Procedure(**item)
         )
 
 
-
-    print(
-        "Inserting procedures..."
-    )
-
-
-    session.add_all(
-        objects
-    )
-
+    session.add_all(objects)
 
     session.commit()
-
 
 
     print(
@@ -68,6 +46,5 @@ def insert_procedures():
 
 
 
-if __name__ == "__main__":
-
-    insert_procedures()
+if __name__=="__main__":
+    insert_procedure()

@@ -4,7 +4,6 @@ from generator.doctor_generator import generate_doctors
 
 from models.doctor_model import Doctor
 
-
 from sqlalchemy import text
 
 
@@ -12,56 +11,55 @@ from sqlalchemy import text
 def insert_doctors():
 
 
-    session = get_session()
+    session=get_session()
 
 
-    print(
-        "Loading providers..."
-    )
 
-
-    providers = session.execute(
+    facilities=session.execute(
         text(
-            "SELECT id FROM providers"
+            """
+            SELECT 
+            id,
+            facility_type
+
+            FROM facilities
+            """
         )
     ).fetchall()
 
 
 
-    provider_list = [
+    facility_list=[]
 
-        {
-            "id": row[0]
-        }
 
-        for row in providers
+    for row in facilities:
 
-    ]
+        facility_list.append({
+
+            "id":row[0],
+
+            "facility_type":row[1]
+
+        })
 
 
 
     print(
-        len(provider_list),
-        "providers loaded"
+        len(facility_list),
+        "facilities loaded"
+    )
+
+
+
+    doctors=generate_doctors(
+        facility_list,
+        50000
     )
 
 
 
     print(
-        "Generating doctors..."
-    )
-
-
-
-    data = generate_doctors(
-        provider_list,
-        5000
-    )
-
-
-
-    print(
-        len(data),
+        len(doctors),
         "doctors generated"
     )
 
@@ -70,24 +68,11 @@ def insert_doctors():
     objects=[]
 
 
-
-    for item in data:
-
-
-        doctor = Doctor(
-            **item
-        )
-
+    for item in doctors:
 
         objects.append(
-            doctor
+            Doctor(**item)
         )
-
-
-
-    print(
-        "Inserting doctors..."
-    )
 
 
 
@@ -99,7 +84,6 @@ def insert_doctors():
     session.commit()
 
 
-
     print(
         "DOCTOR INSERT COMPLETE"
     )
@@ -109,6 +93,6 @@ def insert_doctors():
 
 
 
-if __name__ == "__main__":
+if __name__=="__main__":
 
     insert_doctors()

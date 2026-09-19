@@ -1,10 +1,10 @@
-from sqlalchemy import Column, String, Integer
+from sqlalchemy import Column, String, Boolean, Numeric
 from models import Base
 
 
 class Procedure(Base):
 
-    __tablename__ = "procedures"
+    __tablename__="procedures"
 
 
     id = Column(
@@ -14,20 +14,40 @@ class Procedure(Base):
 
 
     procedure_code = Column(
-        String
+        String(50)
     )
 
 
     name = Column(
-        String
+        String(150)
     )
 
 
     category = Column(
-        String
+        String(100)
+    )
+
+
+    level = Column(
+        String(20)
+    )
+
+
+    requires_specialist = Column(
+        Boolean
+    )
+
+
+    severity_match = Column(
+        String(20)
+    )
+
+
+    facility_type = Column(
+        String(20)
     )
 
 
     standard_cost = Column(
-        Integer
+        Numeric(14,2)
     )

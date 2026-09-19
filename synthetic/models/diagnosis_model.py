@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String
+from sqlalchemy import Column, String, Boolean
 from models import Base
 
 
@@ -14,15 +14,30 @@ class Diagnosis(Base):
 
 
     icd_code = Column(
-        String
+        String(20)
     )
 
 
     name = Column(
-        String
+        String(150)
     )
 
 
     category = Column(
-        String
+        String(100)
+    )
+
+
+    severity_level = Column(
+        String(20)
+    )
+
+
+    chronic_flag = Column(
+        Boolean
+    )
+
+
+    requires_referral = Column(
+        Boolean
     )
