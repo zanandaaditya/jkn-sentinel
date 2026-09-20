@@ -13,3 +13,6 @@ from models.tariff_model import Tariff
 
 from models.claim_model import Claim
 from models.claim_detail_model import ClaimDetail
+from models.facility_risk_model import FacilityRiskProfile
+from models.doctor_risk_model import DoctorRiskProfile
+from models.claim_fraud_explanation_model import ClaimFraudExplanation

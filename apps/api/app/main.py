@@ -1,33 +1,52 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
-from app.routers import health
+
+from routers.dashboard_router import router as dashboard_router
+
+from routers.claim_router import router as claim_router
 
 
-app = FastAPI(
 
-    title="JKN SENTINEL API",
+app = FastAPI()
 
-    version="0.1.0"
 
-)
 
+# =========================
+# ROUTERS
+# =========================
 
 
 app.include_router(
-
-    health.router
-
+    dashboard_router
 )
 
 
-@app.get("/")
+app.include_router(
+    claim_router
+)
 
-def root():
 
-    return {
 
-        "message":
 
-        "JKN SENTINEL API Running"
 
-    }
+# =========================
+# CORS
+# =========================
+
+
+app.add_middleware(
+
+    CORSMiddleware,
+
+    allow_origins=[
+        "http://localhost:5173"
+    ],
+
+    allow_credentials=True,
+
+    allow_methods=["*"],
+
+    allow_headers=["*"],
+
+)
