@@ -1,0 +1,58 @@
+from sqlalchemy import Column, String, Boolean, Numeric
+from models import Base
+
+
+class Medicine(Base):
+
+    __tablename__ = "medicines"
+
+
+    id = Column(
+        String,
+        primary_key=True
+    )
+
+
+    medicine_code = Column(
+        String(50)
+    )
+
+
+    name = Column(
+        String(150)
+    )
+
+
+    category = Column(
+        String(100)
+    )
+
+
+    form = Column(
+        String(50)
+    )
+
+
+    unit = Column(
+        String(50)
+    )
+
+
+    standard_price = Column(
+        Numeric(14,2)
+    )
+
+
+    chronic_flag = Column(
+        Boolean
+    )
+
+
+    severity_match = Column(
+        String(20)
+    )
+
+
+    requires_diagnosis_match = Column(
+        Boolean
+    )
